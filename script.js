@@ -282,6 +282,7 @@ var instaGram = InstaGram;
 var i = 0;
 
 
+console.log("Class initialized succesfully!!!");
 
 
 
@@ -293,9 +294,11 @@ var i = 0;
 
 
 
+/**********       null the local storage    ******************/
 
+localStorage['instagramUsers'] = '';
 
-
+/********************/
 
 
 
