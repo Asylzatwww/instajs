@@ -117,8 +117,8 @@ var InstaGram = {
         var prStr = '{';
         for (prUser in this.prUsersOld)
         {
-            prStr += '"' + prUser + '" : { "followers" : ' + this.prUsersOld[prUser].followers + ', "following" : ' + this.prUsersOld[prUser].following + ', "posted" : ' +
-                this.prUsersOld[prUser].posted + ', "date" : "' + this.prUsersOld[prUser].date + '", "followingMe" : "' + this.prUsersOld[prUser].followingMe + '" },';
+            prStr += '&r"' + prUser + '&r" : { &r"followers&r" : ' + this.prUsersOld[prUser].followers + ', &r"following&r" : ' + this.prUsersOld[prUser].following + ', &r"posted&r" : ' +
+                this.prUsersOld[prUser].posted + ', &r"date&r" : &r"' + this.prUsersOld[prUser].date + '&r", &r"followingMe&r" : &r"' + this.prUsersOld[prUser].followingMe + '&r" },';
         }
         prStr = prStr.slice(0, -1);
         prStr += '}';
