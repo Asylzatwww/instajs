@@ -154,8 +154,8 @@ var InstaGram = {
                             }
 
                             $(window).scrollTop(  $('#prHeart').offset().top );
-
-                            that.prUsersOld[ $('.coreSpriteHeartOpen').parent().parent().parent().parent().find('header').find('a').attr('href') ].posted++;
+                            var userHref = $('.coreSpriteHeartOpen').parent().parent().parent().parent().find('header').find('a').attr('href');
+                            if (that.prUsersOld[ userHref ] != undefined) that.prUsersOld[ userHref ].posted++;
                             document.getElementById('prHeart').click();
 
                             $('#prHeart').removeAttr("id");
