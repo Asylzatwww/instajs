@@ -11,21 +11,22 @@ function prUsersGet()
 
     $("._gs38e").find("li").each(function(){
         prUser = $(this).find("a").attr("href");
-        if(jQuery.inArray(prUser, prUsersOld) == -1)
+        i++;
+        prUsers[i] = prUser;
+
+        if(!(prUser in prUsersOld))
         {
-            i++;
-            prUsers[i] = prUser;
             prUsersOld[prUser] = { "followers" : 0, "following" : 0, "posted" : 0, "date" : date, "followingMe" : 0 };
         }
         console.log(prUser);
     });
 
     i = 0;
-    for (prUser in this.prUsersOld)
+    for (prUser in prUsersOld)
     {
-        if(jQuery.inArray(prUser, prUsers) == -1)
+        if(!(prUser in prUsers))
         {
-            this.prUsersOld = this.prUsersOld.slice(i,1);
+            prUsersOld = prUsersOld.slice(i,1);
         }
         i++;
     }

@@ -22,6 +22,7 @@ function likesOnMainPage()
                         document.getElementById("prHeart").click();
 
                         $("#prHeart").removeAttr("id");
+                        console.log(i);
 
                         i++;
                         if ( ($("#prHeart").offset() == null) || (i > 100) )
