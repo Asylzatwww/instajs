@@ -1,21 +1,13 @@
 
 
 
-
-
-
-
-
-
 function prUsersGet()
 {
     var
         prUsers = [],
         i = 0,
         date = new Date();
-
-    date += '';
-    date.substring(0, date.indexOf('GMT')-1);
+    date = (date.getMonth() + 1) + '/' + date.getDate() + '/' +  date.getFullYear();
 
     $('._gs38e').find('li').each(function(){
         prUser = $(this).find('a').attr('href');

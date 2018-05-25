@@ -5,8 +5,8 @@ function writeToLocalStorage()
     var prStr = '{';
     for (prUser in prUsersOld)
     {
-        prStr += '&r"' + prUser + '&r" : { &r"followers&r" : ' + prUsersOld[prUser].followers + ', &r"following&r" : ' + prUsersOld[prUser].following + ', &r"posted&r" : ' +
-            prUsersOld[prUser].posted + ', &r"date&r" : &r"' + prUsersOld[prUser].date + '&r", &r"followingMe&r" : &r"' + prUsersOld[prUser].followingMe + '&r" },';
+        prStr += '"' + prUser + '" : { "followers" : ' + prUsersOld[prUser].followers + ', "following" : ' + prUsersOld[prUser].following + ', "posted" : ' +
+            prUsersOld[prUser].posted + ', "date" : "' + prUsersOld[prUser].date + '", "followingMe" : "' + prUsersOld[prUser].followingMe + '" },';
     }
     prStr = prStr.slice(0, -1);
     prStr += '}';
@@ -14,8 +14,4 @@ function writeToLocalStorage()
     localStorage['instagramUsers'] = prStr;
 }
 
-/**********       null the local storage    ******************/
 
-localStorage['instagramUsers'] = '';
-
-/********************/
