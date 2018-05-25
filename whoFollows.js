@@ -7,15 +7,15 @@ function prUsersGet()
         prUsers = [],
         i = 0,
         date = new Date();
-    date = (date.getMonth() + 1) + '/' + date.getDate() + '/' +  date.getFullYear();
+    date = (date.getMonth() + 1) + "/" + date.getDate() + "/" +  date.getFullYear();
 
-    $('._gs38e').find('li').each(function(){
-        prUser = $(this).find('a').attr('href');
+    $("._gs38e").find("li").each(function(){
+        prUser = $(this).find("a").attr("href");
         if(jQuery.inArray(prUser, prUsersOld) == -1)
         {
             i++;
             prUsers[i] = prUser;
-            prUsersOld[prUser] = { 'followers' : 0, 'following' : 0, 'posted' : 0, 'date' : date, 'followingMe' : 0 };
+            prUsersOld[prUser] = { "followers" : 0, "following" : 0, "posted" : 0, "date" : date, "followingMe" : 0 };
         }
         console.log(prUser);
     });
@@ -37,10 +37,10 @@ function prUsersGet()
 
 function prCloseOpenWindow()
 {
-    $('._pfyik ').attr("id","prfollowingC");
+    $("._pfyik ").attr("id","prfollowingC");
     setTimeout(
         function(){
-            document.getElementById('prfollowingC').click();
+            document.getElementById("prfollowingC").click();
             sequenceInd++;
             eval(sequenceFunc[sequenceInd]);
         }, 600
@@ -50,8 +50,8 @@ function prCloseOpenWindow()
 function prFollowingMe()
 {
     var that = this;
-    $('._gs38e').find('li').each(function(){
-        prUser = $(this).find('a').attr('href');
+    $("._gs38e").find("li").each(function(){
+        prUser = $(this).find("a").attr("href");
         if(prUsersOld[prUser] != null)
         {
             console.log(prUser);
@@ -65,11 +65,6 @@ function prFollowingMe()
 
 
 
-
-/*************************************************************/
-/// 1
-/// Get all Users
-/*************************************************************/
 
 prUsersOldGet();
 var sequenceFunc = [],

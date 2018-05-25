@@ -13,12 +13,362 @@
 
 '>JQuery Functions</a>
 
-<a href='javascript:instaGram.likesOnMainPage();'>Проставить лайки</a>
+<a href='javascript:
+/*
+* Global
+*/
 
-<a href='javascript:localStorage["instagramUsers"] = "";'>Обнулить. подпис.</a>
+/*
+* Used in:
+ * whoFollows.js
+ * jasonLocalStorage.js
+ * userData.js
+ * showUsersInfo.js
+* */
+var prUsersOld = [];
 
-<a href='javascript:instaGram.writeToLocalStorage();'>Сохранить. подпис.</a>
+
+/*
+* Not Dependent Function
+* Used in:
+ * whoFollows.js
+ * userData.js
+ * showUsersInfo.js
+* */
+function prUsersOldGet()
+{
+    if (localStorage["instagramUsers"] != "" && localStorage["instagramUsers"] != "undefined")
+    {
+        var prUsersOldR = JSON.parse(localStorage["instagramUsers"]);
+
+        for (prUser in prUsersOldR){
+            prUsersOld[prUser] = prUsersOldR[prUser];
+        }
+    }
+
+}
+
+/*
+* Not Dependent Function
+* Used in:
+ * whoFollows.js
+ * userData.js
+ * showUsersInfo.js
+* */
+function prfollowOpen(ind, time)
+{
+
+    $("._h9luf ").find("li:eq( " + ind + " )").find("a").attr("id","prfollowing");
+    setTimeout(
+        function(){
+            document.getElementById("prfollowing").click();
+
+            setTimeout(
+                function(){
+                    $("._gs38e").attr("id","prfollowb");
+                    var prfollowbh = 0;
+                    var prfollowt = setInterval(
+                        function(){
+                            if (prfollowbh != $("#prfollowb ul").height())
+                            {
+                                document.getElementById("prfollowb").scrollTo(0,$("#prfollowb ul").height());
+                                prfollowbh = $("#prfollowb ul").height();
+                                console.log(prfollowbh);
+                            }
+                            else
+                            {
+                                clearInterval(prfollowt);
+                                sequenceInd++;
+                                eval(sequenceFunc[sequenceInd]);
+                            }
+                        },600
+                    );
+                }, time
+            );
+        }, 600
+    );
+}
+
+'>First Run</a>
+
+<a href='javascript:
+
+function showUsersInfo() {
+    $("._gs38e").find("li").each(function () {
+        var prUser = $(this).find("a").attr("href");
+        if (jQuery.inArray(prUser, prUsersOld) == -1) {
+            $(this).find("a")[0].after(" п-ки " + prUsersOld[prUser].followers + " (" + prUsersOld[prUser].following + ") публ " + prUsersOld[prUser].posted + " ");
+            if (prUsersOld[prUser].followingMe == "0") $(this).css({border: "1px dashed red", margin: "2px 0"});
+
+        }
+
+    });
+}
+
+prUsersOldGet();
+var sequenceFunc = [],
+    sequenceInd = 0;
+
+sequenceFunc[1] = "showUsersInfo()";
+prfollowOpen("2",1000);
+'>showUserInfo</a>
+
+<a href='javascript:
+
+var prUsers = [];
 
 
+function prUserData()
+{
+    var i = 0;
+
+    $("._gs38e").find("li").each(function(){
+
+        prUsers[i] = $(this).find("a").attr("href");
+        $(this).find("a").attr("id",  prUsers[i] );
+        i++;
+
+    });
+
+    prUserDataCycleInd( prUsers, 0 , i);
+
+}
+
+function prUserDataCycleInd( prUsers, j , i)
+{
+
+    if (prUsersOld[ prUsers[j] ] != null && prUsersOld[ prUsers[j] ].followers == 0){
+
+        setTimeout(
+            function(){
+                document.getElementById( prUsers[j] ).click();
+
+                setTimeout(
+                    function(){
+                        prUsersOld[ prUsers[j] ].followers = parseInt( $("._h9luf ").find("li:eq( 1 )").find("span").html().replace(",","").replace("тыс.","00") );
+                        prUsersOld[ prUsers[j] ].following = parseInt( $("._h9luf ").find("li:eq( 2 )").find("span").html().replace(",","").replace("тыс.","00") );
+
+                        console.log("User - " + prUsers[j] + "All - " + i + " Current - " + j);
+                        console.log(prUsersOld[ prUsers[j] ]);
+                        backFromUserPage(j,i);
+
+
+                    }, 1000
+                );
+
+            }, 600
+        );
+
+    }
+    else
+    {
+        j++;
+        console.log( prUsers[j] );
+        if (j < i) eval("prUserDataCycleInd(prUsers, j, i)");
+    }
+}
+
+
+function backFromUserPage(j,i) {
+
+    $(".coreSpriteDesktopNavProfile").attr("id", "desktopNavProf");
+    setTimeout(
+        function () {
+            document.getElementById("desktopNavProf").click();
+
+            setTimeout(
+                function () {
+
+                    $("._h9luf ").find("li:eq( 2 )").find("a").attr("id", "prfollowing");
+                    setTimeout(
+                        function () {
+                            document.getElementById("prfollowing").click();
+
+                            setTimeout(
+                                function(){
+
+                                    $("._gs38e").find("li").each(function(){
+
+                                        $(this).find("a").attr("id",  $(this).find("a").attr("href") );
+
+                                    });
+
+                                    setTimeout(
+                                        function(){
+                                            j++;
+                                            if (j < i) eval("prUserDataCycleInd(prUsers, j, i)");
+                                        }, 600
+                                    );
+                                }, 600
+                            );
+
+                        }, 600
+                    );
+
+
+                }, 600
+            );
+
+        }, 600
+    );
+
+}
+
+
+prUsersOldGet();
+var sequenceFunc = [],
+    sequenceInd = 0;
+
+sequenceFunc[1] = "prUserData()";
+prfollowOpen("2",1000);
+
+'>userData</a>
+
+
+<a href='javascript:
+
+
+
+function prUsersGet()
+{
+    var
+        prUsers = [],
+        i = 0,
+        date = new Date();
+    date = (date.getMonth() + 1) + "/" + date.getDate() + "/" +  date.getFullYear();
+
+    $("._gs38e").find("li").each(function(){
+        prUser = $(this).find("a").attr("href");
+        if(jQuery.inArray(prUser, prUsersOld) == -1)
+        {
+            i++;
+            prUsers[i] = prUser;
+            prUsersOld[prUser] = { "followers" : 0, "following" : 0, "posted" : 0, "date" : date, "followingMe" : 0 };
+        }
+        console.log(prUser);
+    });
+
+    i = 0;
+    for (prUser in this.prUsersOld)
+    {
+        if(jQuery.inArray(prUser, prUsers) == -1)
+        {
+            this.prUsersOld = this.prUsersOld.slice(i,1);
+        }
+        i++;
+    }
+
+    sequenceInd++;
+    eval(sequenceFunc[sequenceInd]);
+
+}
+
+function prCloseOpenWindow()
+{
+    $("._pfyik ").attr("id","prfollowingC");
+    setTimeout(
+        function(){
+            document.getElementById("prfollowingC").click();
+            sequenceInd++;
+            eval(sequenceFunc[sequenceInd]);
+        }, 600
+    );
+}
+
+function prFollowingMe()
+{
+    var that = this;
+    $("._gs38e").find("li").each(function(){
+        prUser = $(this).find("a").attr("href");
+        if(prUsersOld[prUser] != null)
+        {
+            console.log(prUser);
+            prUsersOld[prUser].followingMe = 1;
+        }
+    });
+
+
+}
+
+
+
+
+
+prUsersOldGet();
+var sequenceFunc = [],
+    sequenceInd = 0;
+prfollowOpen("2",1000);
+sequenceFunc[1] = "prUsersGet()";
+sequenceFunc[2] = "prCloseOpenWindow()";
+sequenceFunc[3] = "prfollowOpen(\"1\",1000)";
+sequenceFunc[4] = "prFollowingMe()";
+'>whoFollows</a>
+
+<a href='javascript:
+function likesOnMainPage()
+{
+
+    $(".coreSpriteDesktopNavLogoAndWordmark").attr("id","desktopNav");
+
+    setTimeout(
+        function(){
+            document.getElementById("desktopNav").click();
+
+            setTimeout(
+                function(){
+
+                    var i = 0;
+
+                    var timerId = setInterval(function() {
+
+
+                        $(".coreSpriteHeartOpen").parent().attr("id","prHeart");
+                        /*$(".coreSpriteHeartFull").parent().attr("id","prHeart");*/
+
+                        $(window).scrollTop(  $("#prHeart").offset().top );
+                        document.getElementById("prHeart").click();
+
+                        $("#prHeart").removeAttr("id");
+
+                        i++;
+                        if ( ($("#prHeart").offset() == null) || (i > 100) )
+                            clearInterval(timerId);
+                    }, 600);
+
+                }, 600
+            );
+
+        }, 600
+    );
+
+}
+
+likesOnMainPage();
+'>likesOnMainPage</a>
+
+
+<a href='javascript:
+function writeToLocalStorage()
+{
+    var prStr = "{";
+    for (prUser in prUsersOld)
+    {
+        prStr += "\"" + prUser + "\" : { \"followers\" : " + prUsersOld[prUser].followers + ", \"following\" : " + prUsersOld[prUser].following + ", \"posted\" : " +
+            prUsersOld[prUser].posted + ", \"date\" : \"" + prUsersOld[prUser].date + "\", \"followingMe\" : \"" + prUsersOld[prUser].followingMe + "\" },";
+    }
+    prStr = prStr.slice(0, -1);
+    prStr += "}";
+    console.log(prStr);
+    localStorage["instagramUsers"] = prStr;
+}
+
+writeToLocalStorage();
+'>writeToLocalStorage</a>
+
+<style>
+    a {
+        display: block;
+    }
+</style>
 </body>
 </html>

@@ -1,11 +1,11 @@
 function likesOnMainPage()
 {
 
-    $('.coreSpriteDesktopNavLogoAndWordmark').attr("id","desktopNav");
+    $(".coreSpriteDesktopNavLogoAndWordmark").attr("id","desktopNav");
 
     setTimeout(
         function(){
-            document.getElementById('desktopNav').click();
+            document.getElementById("desktopNav").click();
 
             setTimeout(
                 function(){
@@ -15,16 +15,16 @@ function likesOnMainPage()
                     var timerId = setInterval(function() {
 
 
-                        //$('.coreSpriteHeartOpen').parent().attr("id","prHeart");
-                        $('.coreSpriteHeartFull').parent().attr("id","prHeart");
+                        $(".coreSpriteHeartOpen").parent().attr("id","prHeart");
+                        /*$(".coreSpriteHeartFull").parent().attr("id","prHeart");*/
 
-                        $(window).scrollTop(  $('#prHeart').offset().top );
-                        document.getElementById('prHeart').click();
+                        $(window).scrollTop(  $("#prHeart").offset().top );
+                        document.getElementById("prHeart").click();
 
-                        $('#prHeart').removeAttr("id");
+                        $("#prHeart").removeAttr("id");
 
                         i++;
-                        if ( ($('#prHeart').offset() == null) || (i > 3) )
+                        if ( ($("#prHeart").offset() == null) || (i > 100) )
                             clearInterval(timerId);
                     }, 600);
 
@@ -35,4 +35,5 @@ function likesOnMainPage()
     );
 
 }
+
 likesOnMainPage();
