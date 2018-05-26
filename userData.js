@@ -30,8 +30,8 @@ function prUserDataCycleInd( prUsers)
 
                 setTimeout(
                     function(){
-                        prUsersOld[ prUsers[currentUser] ].followers = parseInt( $("._h9luf ").find("li:eq( 1 )").find("span").html().replace(",","").replace("тыс.","00") );
-                        prUsersOld[ prUsers[currentUser] ].following = parseInt( $("._h9luf ").find("li:eq( 2 )").find("span").html().replace(",","").replace("тыс.","00") );
+                        prUsersOld[ prUsers[currentUser] ].followers = parseInt( $("._h9luf ").find("li:eq( 1 )").find("span").html().replace(" ","").replace(",","").replace("тыс.","00") );
+                        prUsersOld[ prUsers[currentUser] ].following = parseInt( $("._h9luf ").find("li:eq( 2 )").find("span").html().replace(" ","").replace(",","").replace("тыс.","00") );
 
                         console.log("User - " + prUsers[currentUser] + "All - " + allUsers + " Current - " + currentUser);
                         console.log(prUsersOld[ prUsers[currentUser] ]);

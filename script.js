@@ -142,7 +142,7 @@ function likeUserImages(){
             var likedBefore = 0;
             var timerId = setInterval(function() {
                 if (likeNext()) likedBefore++; else i++;
-                if (i > 10 || likedBefore > 0){
+                if (i > 3 || likedBefore > 0){
                     clearInterval(timerId);
                     sequenceInd++;
                     eval(sequenceFunc[sequenceInd]);
