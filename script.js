@@ -85,6 +85,12 @@ function prfollowOpen(ind, time)
 
 function prCloseOpenWindow()
 {
+    if ($("._pfyik").length === 0){
+        sequenceInd++;
+        eval(sequenceFunc[sequenceInd]);
+        return;
+    }
+
     $("._pfyik ").attr("id","prfollowingC");
     setTimeout(
         function(){
@@ -136,7 +142,7 @@ function likeUserImages(){
             var likedBefore = 0;
             var timerId = setInterval(function() {
                 if (likeNext()) likedBefore++; else i++;
-                if (i > 10 || likedBefore > 2){
+                if (i > 10 || likedBefore > 0){
                     clearInterval(timerId);
                     sequenceInd++;
                     eval(sequenceFunc[sequenceInd]);
