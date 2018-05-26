@@ -74,8 +74,3 @@ sequenceFunc[1] = "prUsersGet()";
 sequenceFunc[2] = "prCloseOpenWindow()";
 sequenceFunc[3] = "prfollowOpen(\"1\",1000)";
 sequenceFunc[4] = "prFollowingMe()";
-
-
-
-
-
