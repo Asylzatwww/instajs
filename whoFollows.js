@@ -17,18 +17,17 @@ function prUsersGet()
         if(!(prUser in prUsersOld))
         {
             prUsersOld[prUser] = { "followers" : 0, "following" : 0, "posted" : 0, "date" : date, "followingMe" : 0 };
+            console.log("Added - " + prUser);
         }
-        console.log(prUser);
     });
 
-    i = 0;
     for (prUser in prUsersOld)
     {
-        if(!(prUser in prUsers))
+        if(jQuery.inArray(prUser, prUsers) == -1)
         {
-            prUsersOld = prUsersOld.slice(i,1);
+            delete prUsersOld[prUser];
+            console.log("Deleted - " + prUser);
         }
-        i++;
     }
 
     sequenceInd++;
@@ -75,3 +74,8 @@ sequenceFunc[1] = "prUsersGet()";
 sequenceFunc[2] = "prCloseOpenWindow()";
 sequenceFunc[3] = "prfollowOpen(\"1\",1000)";
 sequenceFunc[4] = "prFollowingMe()";
+
+
+
+
+

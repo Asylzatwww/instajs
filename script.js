@@ -42,10 +42,12 @@ function prUsersOldGet()
 function prfollowOpen(ind, time)
 {
 
-    $("._h9luf ").find("li:eq( " + ind + " )").find("a").attr("id","prfollowing");
+    var linkForClick = $("._h9luf ").find("li:eq( " + ind + " )").find("a");
+    linkForClick.attr("id","prfollowing");
     setTimeout(
         function(){
             document.getElementById("prfollowing").click();
+            linkForClick.removeAttr('id');
 
             setTimeout(
                 function(){
@@ -64,6 +66,7 @@ function prfollowOpen(ind, time)
                                 clearInterval(prfollowt);
                                 sequenceInd++;
                                 eval(sequenceFunc[sequenceInd]);
+
                             }
                         },600
                     );

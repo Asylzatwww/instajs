@@ -46,8 +46,8 @@ function prUserDataCycleInd( prUsers, j , i)
     }
     else
     {
-        j++;
         console.log( prUsers[j] );
+        j++;
         if (j < i) eval("prUserDataCycleInd(prUsers, j, i)");
     }
 }
