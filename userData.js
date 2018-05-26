@@ -1,40 +1,43 @@
 
 var prUsers = [];
+var allUsers = 0;
+var currentUser = 0;
 
 
 function prUserData()
 {
-    var i = 0;
 
     $("._gs38e").find("li").each(function(){
 
-        prUsers[i] = $(this).find("a").attr("href");
-        $(this).find("a").attr("id",  prUsers[i] );
-        i++;
+        prUsers[allUsers] = $(this).find("a").attr("href");
+        $(this).find("a").attr("id",  prUsers[allUsers] );
+        allUsers++;
 
     });
 
-    prUserDataCycleInd( prUsers, 0 , i);
+    prUserDataCycleInd( prUsers);
 
 }
 
-function prUserDataCycleInd( prUsers, j , i)
+function prUserDataCycleInd( prUsers)
 {
 
-    if (prUsersOld[ prUsers[j] ] != null && prUsersOld[ prUsers[j] ].followers == 0){
+    if (prUsersOld[ prUsers[currentUser] ] != null && prUsersOld[ prUsers[currentUser] ].followers == 0){
 
         setTimeout(
             function(){
-                document.getElementById( prUsers[j] ).click();
+                document.getElementById( prUsers[currentUser] ).click();
 
                 setTimeout(
                     function(){
-                        prUsersOld[ prUsers[j] ].followers = parseInt( $("._h9luf ").find("li:eq( 1 )").find("span").html().replace(",","").replace("тыс.","00") );
-                        prUsersOld[ prUsers[j] ].following = parseInt( $("._h9luf ").find("li:eq( 2 )").find("span").html().replace(",","").replace("тыс.","00") );
+                        prUsersOld[ prUsers[currentUser] ].followers = parseInt( $("._h9luf ").find("li:eq( 1 )").find("span").html().replace(",","").replace("тыс.","00") );
+                        prUsersOld[ prUsers[currentUser] ].following = parseInt( $("._h9luf ").find("li:eq( 2 )").find("span").html().replace(",","").replace("тыс.","00") );
 
-                        console.log("User - " + prUsers[j] + "All - " + i + " Current - " + j);
-                        console.log(prUsersOld[ prUsers[j] ]);
-                        backFromUserPage(j,i);
+                        console.log("User - " + prUsers[currentUser] + "All - " + allUsers + " Current - " + currentUser);
+                        console.log(prUsersOld[ prUsers[currentUser] ]);
+
+                        sequenceInd = 2;
+                        eval(sequenceFunc[sequenceInd]);
 
 
                     }, 1000
@@ -46,53 +49,54 @@ function prUserDataCycleInd( prUsers, j , i)
     }
     else
     {
-        console.log( prUsers[j] );
-        j++;
-        if (j < i) eval("prUserDataCycleInd(prUsers, j, i)");
+        console.log( prUsers[currentUser] );
+        currentUser++;
+        if (currentUser < allUsers) eval("prUserDataCycleInd(prUsers)");
     }
 }
 
 
-function backFromUserPage(j,i) {
-
-    $(".coreSpriteDesktopNavProfile").attr("id", "desktopNavProf");
+function backFromUserPage() {
     setTimeout(
         function () {
-            document.getElementById("desktopNavProf").click();
-
+            $(".coreSpriteDesktopNavProfile").attr("id", "desktopNavProf");
             setTimeout(
                 function () {
+                    document.getElementById("desktopNavProf").click();
 
-                    $("._h9luf ").find("li:eq( 2 )").find("a").attr("id", "prfollowing");
                     setTimeout(
                         function () {
-                            document.getElementById("prfollowing").click();
 
+                            $("._h9luf ").find("li:eq( 2 )").find("a").attr("id", "prfollowing");
                             setTimeout(
-                                function(){
-
-                                    $("._gs38e").find("li").each(function(){
-
-                                        $(this).find("a").attr("id",  $(this).find("a").attr("href") );
-
-                                    });
+                                function () {
+                                    document.getElementById("prfollowing").click();
 
                                     setTimeout(
                                         function(){
-                                            j++;
-                                            if (j < i) eval("prUserDataCycleInd(prUsers, j, i)");
+
+                                            $("._gs38e").find("li").each(function(){
+
+                                                $(this).find("a").attr("id",  $(this).find("a").attr("href") );
+
+                                            });
+
+
+                                            currentUser++;
+                                            if (currentUser < allUsers) eval("prUserDataCycleInd(prUsers)");
+
                                         }, 600
                                     );
+
                                 }, 600
                             );
+
 
                         }, 600
                     );
 
-
                 }, 600
             );
-
         }, 600
     );
 
@@ -104,10 +108,9 @@ var sequenceFunc = [],
     sequenceInd = 0;
 
 sequenceFunc[1] = "prUserData()";
+sequenceFunc[2] = "likeUserImages()";
+sequenceFunc[3] = "prCloseOpenWindow()";
+sequenceFunc[4] = "backFromUserPage()";
+
 prfollowOpen("2",1000);
-
-
-
-
-
 

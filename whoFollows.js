@@ -35,18 +35,6 @@ function prUsersGet()
 
 }
 
-function prCloseOpenWindow()
-{
-    $("._pfyik ").attr("id","prfollowingC");
-    setTimeout(
-        function(){
-            document.getElementById("prfollowingC").click();
-            sequenceInd++;
-            eval(sequenceFunc[sequenceInd]);
-        }, 600
-    );
-}
-
 function prFollowingMe()
 {
     var that = this;
@@ -59,10 +47,7 @@ function prFollowingMe()
         }
     });
 
-
 }
-
-
 
 
 

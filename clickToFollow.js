@@ -25,9 +25,15 @@ function clickToFollow(){
             else
             {
                 clearInterval(prfollowt);
-                for (var j = 1; j < i; j++){
-                    document.getElementById("click" + j).click();
-                }
+                var j = 1;
+                var prClickToSelected = setInterval(
+                    function(){
+                        document.getElementById("click" + j).click();
+                        j++;
+                        if (j >= i) clearInterval(prClickToSelected);
+                    },1000
+                );
+
             }
         },600
     );

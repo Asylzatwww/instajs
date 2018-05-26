@@ -75,3 +75,68 @@ function prfollowOpen(ind, time)
         }, 600
     );
 }
+
+/*
+* Not Dependent Function
+* Used in:
+ * whoFollows.js
+ * userData.js
+* */
+
+function prCloseOpenWindow()
+{
+    $("._pfyik ").attr("id","prfollowingC");
+    setTimeout(
+        function(){
+            document.getElementById("prfollowingC").click();
+            sequenceInd++;
+            eval(sequenceFunc[sequenceInd]);
+        }, 600
+    );
+}
+
+/*
+* Not Dependent Function
+* Used in:
+ * userData.js
+* */
+
+function likeNext(){
+    if ($(".coreSpriteRightPaginationArrow").length === 0) return false;
+    $(".coreSpriteRightPaginationArrow").attr("id","nextme");
+    document.getElementById("nextme").click();
+
+    if ($(".coreSpriteHeartOpen").length === 0){
+        return true;
+    } else {
+        $(".coreSpriteHeartOpen").parent().attr("id", "clickme");
+        document.getElementById("clickme").click();
+        return false;
+    }
+}
+
+/*
+* Not Dependent Function
+* Used in:
+ * userData.js
+* */
+
+function likeUserImages(){
+    $("._e3il2").attr("id","openme");
+    document.getElementById("openme").click();
+    setTimeout(
+        function () {
+            var i = 0;
+            var likedBefore = 0;
+            var timerId = setInterval(function() {
+                if (likeNext()) likedBefore++; else i++;
+                if (i > 10 || likedBefore > 2){
+                    clearInterval(timerId);
+                    sequenceInd++;
+                    eval(sequenceFunc[sequenceInd]);
+                }
+            }, 2000);
+
+        }, 2000
+    );
+}
