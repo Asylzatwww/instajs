@@ -1,4 +1,4 @@
-function clickFollow(){
+function clickToFollow(){
     $("._gs38e").attr("id","prfollowb");
     var prfollowbh = 0;
     var i = 0;
@@ -14,7 +14,7 @@ function clickFollow(){
                     var prUser = $(this).find("button._gexxb");
                     if ($(prUser).length !== 0){
                         i++;
-                        $(prUser).attr('id',"click" + i)
+                        $(prUser).attr("id","click" + i)
                     }
                     console.log(prUser);
 
@@ -33,4 +33,4 @@ function clickFollow(){
     );
 }
 
-clickFollow();
+clickToFollow();

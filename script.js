@@ -47,7 +47,7 @@ function prfollowOpen(ind, time)
     setTimeout(
         function(){
             document.getElementById("prfollowing").click();
-            linkForClick.removeAttr('id');
+            linkForClick.removeAttr("id");
 
             setTimeout(
                 function(){
@@ -75,18 +75,3 @@ function prfollowOpen(ind, time)
         }, 600
     );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
