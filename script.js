@@ -122,6 +122,12 @@ function likeNext(){
 * */
 
 function likeUserImages(){
+    if ($("._e3il2").length === 0){
+        sequenceInd++;
+        eval(sequenceFunc[sequenceInd]);
+        return;
+    }
+
     $("._e3il2").attr("id","openme");
     document.getElementById("openme").click();
     setTimeout(
