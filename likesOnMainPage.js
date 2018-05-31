@@ -1,36 +1,31 @@
 function likesOnMainPage()
 {
-
-    $(".coreSpriteDesktopNavLogoAndWordmark").attr("id","desktopNav");
+    var prHeart = ".ptsdu";
 
     setTimeout(
         function(){
-            document.getElementById("desktopNav").click();
 
-            setTimeout(
-                function(){
+            var i = 0;
 
-                    var i = 0;
-
-                    var timerId = setInterval(function() {
+            var timerId = setInterval(function() {
 
 
-                        $(".coreSpriteHeartOpen").parent().attr("id","prHeart");
-                        /*$(".coreSpriteHeartFull").parent().attr("id","prHeart");*/
+                $(prHeart).parent().attr("id","prHeart");
+                /*$(".coreSpriteHeartFull").parent().attr("id","prHeart");*/
 
-                        $(window).scrollTop(  $("#prHeart").offset().top );
-                        document.getElementById("prHeart").click();
+                if ( ( $("#prHeart").length == 0 ) || ($("#prHeart").offset() == null) || (i > 100) ){
+                    clearInterval(timerId);
+                    return;
+                }
 
-                        $("#prHeart").removeAttr("id");
-                        console.log(i);
+                $(window).scrollTop(  $("#prHeart").offset().top );
+                document.getElementById("prHeart").click();
 
-                        i++;
-                        if ( ($("#prHeart").offset() == null) || (i > 100) )
-                            clearInterval(timerId);
-                    }, 600);
+                $("#prHeart").removeAttr("id");
+                console.log(i);
 
-                }, 600
-            );
+                i++;
+            }, 600);
 
         }, 600
     );
