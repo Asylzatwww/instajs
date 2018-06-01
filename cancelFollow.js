@@ -84,6 +84,7 @@ function lookForUser(prfollowt){
 
 
 var prUsersSort = [];
+var prUsersSort2 = [];
 var dates = [];
 var minDate = "";
 
@@ -103,13 +104,13 @@ function min_date(all_dates) {
 
 function prUsersSortF(){
     var index = 0;
-    var prUsersSort2 = [];
     for (var prUser in prUsersOld){
         if (prUsersOld[ prUser ].date in prUsersSort2)
             prUsersSort2[ prUsersOld[ prUser ].date ].push( prUser );
         else
         {
             prUsersSort2[ prUsersOld[ prUser ].date ] = [];
+            prUsersSort2[ prUsersOld[ prUser ].date ].push( prUser );
             dates.push( prUsersOld[ prUser ].date );
         }
     }
