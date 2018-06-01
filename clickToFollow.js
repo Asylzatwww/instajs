@@ -1,5 +1,5 @@
 
-$("._gs38e").attr("id","prfollowb");
+$(CLfolBodyUL).attr("id","prfollowb");
 var prfollowbh = 0;
 var i = 0;
 var j = 0;
@@ -12,11 +12,11 @@ function clickToFollow(){
             document.getElementById("prfollowb").scrollTo(0,$("#prfollowb ul").height());
             prfollowbh = $("#prfollowb ul").height();
             j = i;
-            $("._gs38e").find("li").each(function(){
+            $(CLfolBodyUL).find("li").each(function(){
                 var prUser = $(this).find("button._gexxb");
                 if ($(prUser).length !== 0){
                     i++;
-                    $(prUser).attr("id","click" + i)
+                    $(prUser).attr("id","click" + i);
                     console.log(prUser);
                 }
 

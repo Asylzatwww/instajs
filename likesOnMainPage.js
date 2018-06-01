@@ -1,7 +1,5 @@
 function likesOnMainPage()
 {
-    var prHeart = ".ptsdu";
-
     setTimeout(
         function(){
 
@@ -10,18 +8,18 @@ function likesOnMainPage()
             var timerId = setInterval(function() {
 
 
-                $(prHeart).parent().attr("id","prHeart");
-                /*$(".coreSpriteHeartFull").parent().attr("id","prHeart");*/
+                $(CLheart).parent().attr("id","CLheart");
+                /*$(".coreSpriteHeartFull").parent().attr("id","CLheart");*/
 
-                if ( ( $("#prHeart").length == 0 ) || ($("#prHeart").offset() == null) || (i > 100) ){
+                if ( ( $("#CLheart").length == 0 ) || ($("#CLheart").offset() == null) || (i > 100) ){
                     clearInterval(timerId);
                     return;
                 }
 
-                $(window).scrollTop(  $("#prHeart").offset().top );
-                document.getElementById("prHeart").click();
+                $(window).scrollTop(  $("#CLheart").offset().top );
+                document.getElementById("CLheart").click();
 
-                $("#prHeart").removeAttr("id");
+                $("#CLheart").removeAttr("id");
                 console.log(i);
 
                 i++;
