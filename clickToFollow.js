@@ -3,6 +3,7 @@ $(CLfolBodyUL).attr("id","prfollowb");
 var prfollowbh = 0;
 var i = 0;
 var j = 0;
+var uniqStr = Math.floor(Math.random() * 100);
 
 
 function clickToFollow(){
@@ -13,10 +14,10 @@ function clickToFollow(){
             prfollowbh = $("#prfollowb ul").height();
             j = i;
             $(CLfolBodyUL).find("li").each(function(){
-                var prUser = $(this).find("button._gexxb");
+                var prUser = $(this).find(CLbtnFollow);
                 if ($(prUser).length !== 0){
                     i++;
-                    $(prUser).attr("id","click" + i);
+                    $(prUser).attr("id","click" + uniqStr + i);
                     console.log(prUser);
                 }
 
@@ -25,9 +26,9 @@ function clickToFollow(){
             var prClSelInt = setInterval(
                 function(){
 
-                    if ($("#click" + j).length === 0) console.log("click" + j);
+                    if ($("#click" + uniqStr + j).length === 0) console.log("click" + j);
                     else {
-                        document.getElementById("click" + j).click();
+                        document.getElementById("click" + uniqStr + j).click();
                         console.log("following - " + j);
                     }
 

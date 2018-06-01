@@ -7,7 +7,7 @@ prUsersOldGet();
 var sequenceFunc = [],
     sequenceInd = 0;
 
-sequenceFunc[0] = "prfollowOpen(\"2\",1000);";
+sequenceFunc[0] = "prfollowOpen`(\"2\",1000);";
 sequenceFunc[1] = "lookForUser(prfollowt)";
 sequenceFunc[2] = "prUserDataCycleInd()";
 sequenceFunc[3] = "likeUserImages()";
@@ -75,11 +75,11 @@ function lookForUser(prfollowt){
             $(this).find("a").attr("id",  currentUser );
             clearInterval(prfollowt);
             return false;
-        } else currentUser = '';
+        } else currentUser = "";
 
     });
 
-    if (currentUser != ''){
+    if (currentUser != ""){
         sequenceInd++;
         console.log("i am running twice");
         eval(sequenceFunc[sequenceInd]);
@@ -91,7 +91,7 @@ function lookForUser(prfollowt){
 
 function prUserDataCycleInd()
 {
-    if (currentUser == '') return false;
+    if (currentUser == "") return false;
 
     setTimeout(
         function(){
@@ -103,7 +103,7 @@ function prUserDataCycleInd()
                     prUsersOld[ currentUser ].following = parseInt( $(CLfollowLI).find("li:eq( 2 )").find("span").html().replace(" ","").replace(",","").replace("тыс.","00") );
 
                     prUserIndex++;
-                    console.log("User - " + currentUser + ' Index - ' + prUserIndex);
+                    console.log("User - " + currentUser + " Index - " + prUserIndex);
                     console.log(prUsersOld[ currentUser ]);
 
                     sequenceInd++;

@@ -23,7 +23,9 @@ var
     CLimage = "._9AhH0", /* main page image */
     ClrightAr = "._1bdSS", /* main page Right Arrow */
     CLiconMain = "._7mese", /* main page icon */
-    CLhomeIcon = ".kQqyt" /* main page home icon */
+    CLhomeIcon = ".kQqyt", /* main page home icon */
+    CLbtnFollow = "button.jIbKX", /* button to follow */
+    CLbtnUnFollow = "button.-fzfL" /* button to Unfollow */
     ;
 
 /*
@@ -156,7 +158,7 @@ function likeUserImages(){
             var likedBefore = 0;
             var timerId = setInterval(function() {
                 if (likeNext()) likedBefore++; else i++;
-                if (i > 3 || likedBefore > 0){
+                if (i > 1 || likedBefore > 0){
                     clearInterval(timerId);
                     sequenceInd++;
                     eval(sequenceFunc[sequenceInd]);
