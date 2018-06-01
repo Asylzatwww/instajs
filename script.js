@@ -11,6 +11,20 @@
 * */
 var prUsersOld = [];
 
+/*
+* Classes which can change
+* */
+var
+    CLfolBodyUL = ".YHaCL", /* main page followers body->ul */
+    ClcloseBody = "._2dDPU", /* main page followers close background */
+    CLfollowLI = ".k9GMp", /* main page posts, followers, following */
+    CLfolBody = ".j6cq2", /* main page followers body */
+    CLheart = ".ptsdu", /* news heart open */
+    CLimage = "._9AhH0", /* main page image */
+    ClrightAr = "._1bdSS", /* main page Right Arrow */
+    CLiconMain = "._7mese", /* main page icon */
+    CLhomeIcon = ".kQqyt" /* main page home icon */
+    ;
 
 /*
 * Not Dependent Function
@@ -42,7 +56,7 @@ function prUsersOldGet()
 function prfollowOpen(ind, time)
 {
 
-    var linkForClick = $("._h9luf ").find("li:eq( " + ind + " )").find("a");
+    var linkForClick = $(CLfollowLI).find("li:eq( " + ind + " )").find("a");
     linkForClick.attr("id","prfollowing");
     setTimeout(
         function(){
@@ -51,7 +65,7 @@ function prfollowOpen(ind, time)
 
             setTimeout(
                 function(){
-                    $("._gs38e").attr("id","prfollowb");
+                    $(CLfolBody).attr("id","prfollowb");
                     var prfollowbh = 0;
                     var prfollowt = setInterval(
                         function(){
@@ -85,13 +99,13 @@ function prfollowOpen(ind, time)
 
 function prCloseOpenWindow()
 {
-    if ($("._pfyik").length === 0){
+    if ($(ClcloseBody).length === 0){
         sequenceInd++;
         eval(sequenceFunc[sequenceInd]);
         return;
     }
 
-    $("._pfyik ").attr("id","prfollowingC");
+    $(ClcloseBody).attr("id","prfollowingC");
     setTimeout(
         function(){
             document.getElementById("prfollowingC").click();
@@ -108,14 +122,14 @@ function prCloseOpenWindow()
 * */
 
 function likeNext(){
-    if ($(".coreSpriteRightPaginationArrow").length === 0) return false;
-    $(".coreSpriteRightPaginationArrow").attr("id","nextme");
+    if ($(ClrightAr).length === 0) return false;
+    $(ClrightAr).attr("id","nextme");
     document.getElementById("nextme").click();
 
-    if ($(".coreSpriteHeartOpen").length === 0){
+    if ($(CLheart).length === 0){
         return true;
     } else {
-        $(".coreSpriteHeartOpen").parent().attr("id", "clickme");
+        $(CLheart).parent().attr("id", "clickme");
         document.getElementById("clickme").click();
         return false;
     }
@@ -128,13 +142,13 @@ function likeNext(){
 * */
 
 function likeUserImages(){
-    if ($("._e3il2").length === 0){
+    if ($(CLimage).length === 0){
         sequenceInd++;
         eval(sequenceFunc[sequenceInd]);
         return;
     }
 
-    $("._e3il2").attr("id","openme");
+    $(CLimage).attr("id","openme");
     document.getElementById("openme").click();
     setTimeout(
         function () {

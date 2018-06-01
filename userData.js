@@ -1,65 +1,127 @@
 
-var prUsers = [];
-var allUsers = 0;
+var prUserNotFound = false;
 var currentUser = 0;
+var prUserIndex;
 
+prUsersOldGet();
+var sequenceFunc = [],
+    sequenceInd = 0;
 
-function prUserData()
+sequenceFunc[0] = "prfollowOpen(\"2\",1000);";
+sequenceFunc[1] = "lookForUser(prfollowt)";
+sequenceFunc[2] = "prUserDataCycleInd()";
+sequenceFunc[3] = "likeUserImages()";
+sequenceFunc[4] = "prCloseOpenWindow()";
+sequenceFunc[5] = "backFromUserPage()";
+
+eval( sequenceFunc[ sequenceInd ] );
+
+function prfollowOpen(ind, time)
 {
 
-    $("._gs38e").find("li").each(function(){
+    var linkForClick = $(CLfollowLI).find("li:eq( " + ind + " )").find("a");
+    linkForClick.attr("id","prfollowing");
+    setTimeout(
+        function(){
+            document.getElementById("prfollowing").click();
+            linkForClick.removeAttr("id");
 
-        prUsers[allUsers] = $(this).find("a").attr("href");
-        $(this).find("a").attr("id",  prUsers[allUsers] );
-        allUsers++;
+            setTimeout(
+                function(){
+                    $(CLfolBody).attr("id","prfollowb");
+                    var prfollowbh = 0;
+
+
+
+                    var prfollowt = setInterval(
+                        function(){
+                            if (prfollowbh != $("#prfollowb ul").height())
+                            {
+                                sequenceInd++;
+                                if ( eval(sequenceFunc[sequenceInd]) ) return false;
+                                sequenceInd--;
+
+                                console.log(sequenceInd);
+
+                                document.getElementById("prfollowb").scrollTo(0,$("#prfollowb ul").height());
+                                prfollowbh = $("#prfollowb ul").height();
+                                console.log(prfollowbh);
+                            }
+                            else
+                            {
+                                prUserNotFound = true;
+                                clearInterval(prfollowt);
+
+                            }
+                        },1000
+                    );
+
+
+
+
+                }, time
+            );
+        }, 600
+    );
+}
+
+
+function lookForUser(prfollowt){
+    $(CLfolBodyUL).find("li").each(function(){
+
+        currentUser = $(this).find("a").attr("href");
+
+        if (currentUser in prUsersOld && prUsersOld[ currentUser ].followers == 0 ){
+            $(this).find("a").attr("id",  currentUser );
+            clearInterval(prfollowt);
+            return false;
+        } else currentUser = '';
 
     });
 
-    prUserDataCycleInd( prUsers);
+    if (currentUser != ''){
+        sequenceInd++;
+        console.log("i am running twice");
+        eval(sequenceFunc[sequenceInd]);
+
+        return true;
+    }
 
 }
 
-function prUserDataCycleInd( prUsers)
+function prUserDataCycleInd()
 {
+    if (currentUser == '') return false;
 
-    if (prUsersOld[ prUsers[currentUser] ] != null && prUsersOld[ prUsers[currentUser] ].followers == 0){
+    setTimeout(
+        function(){
+            document.getElementById( currentUser ).click();
 
-        setTimeout(
-            function(){
-                document.getElementById( prUsers[currentUser] ).click();
+            setTimeout(
+                function(){
+                    prUsersOld[ currentUser ].followers = parseInt( $(CLfollowLI).find("li:eq( 1 )").find("span").html().replace(" ","").replace(",","").replace("тыс.","00") );
+                    prUsersOld[ currentUser ].following = parseInt( $(CLfollowLI).find("li:eq( 2 )").find("span").html().replace(" ","").replace(",","").replace("тыс.","00") );
 
-                setTimeout(
-                    function(){
-                        prUsersOld[ prUsers[currentUser] ].followers = parseInt( $("._h9luf ").find("li:eq( 1 )").find("span").html().replace(" ","").replace(",","").replace("тыс.","00") );
-                        prUsersOld[ prUsers[currentUser] ].following = parseInt( $("._h9luf ").find("li:eq( 2 )").find("span").html().replace(" ","").replace(",","").replace("тыс.","00") );
+                    prUserIndex++;
+                    console.log("User - " + currentUser + ' Index - ' + prUserIndex);
+                    console.log(prUsersOld[ currentUser ]);
 
-                        console.log("User - " + prUsers[currentUser] + "All - " + allUsers + " Current - " + currentUser);
-                        console.log(prUsersOld[ prUsers[currentUser] ]);
-
-                        sequenceInd = 2;
-                        eval(sequenceFunc[sequenceInd]);
+                    sequenceInd++;
+                    eval(sequenceFunc[sequenceInd]);
 
 
-                    }, 1000
-                );
+                }, 1000
+            );
 
-            }, 600
-        );
+        }, 600
+    );
 
-    }
-    else
-    {
-        console.log( prUsers[currentUser] );
-        currentUser++;
-        if (currentUser < allUsers) eval("prUserDataCycleInd(prUsers)");
-    }
 }
-
 
 function backFromUserPage() {
     setTimeout(
         function () {
-            $(".coreSpriteDesktopNavProfile").attr("id", "desktopNavProf");
+            $(CLhomeIcon).attr("id", "desktopNavProf");
             setTimeout(
                 function () {
                     document.getElementById("desktopNavProf").click();
@@ -67,30 +129,10 @@ function backFromUserPage() {
                     setTimeout(
                         function () {
 
-                            $("._h9luf ").find("li:eq( 2 )").find("a").attr("id", "prfollowing");
-                            setTimeout(
-                                function () {
-                                    document.getElementById("prfollowing").click();
-
-                                    setTimeout(
-                                        function(){
-
-                                            $("._gs38e").find("li").each(function(){
-
-                                                $(this).find("a").attr("id",  $(this).find("a").attr("href") );
-
-                                            });
-
-
-                                            currentUser++;
-                                            if (currentUser < allUsers) eval("prUserDataCycleInd(prUsers)");
-
-                                        }, 600
-                                    );
-
-                                }, 600
-                            );
-
+                            if (!prUserNotFound) {
+                                sequenceInd = 0;
+                                eval( sequenceFunc[ sequenceInd ] );
+                            }
 
                         }, 600
                     );
@@ -103,14 +145,11 @@ function backFromUserPage() {
 }
 
 
-prUsersOldGet();
-var sequenceFunc = [],
-    sequenceInd = 0;
 
-sequenceFunc[1] = "prUserData()";
-sequenceFunc[2] = "likeUserImages()";
-sequenceFunc[3] = "prCloseOpenWindow()";
-sequenceFunc[4] = "backFromUserPage()";
 
-prfollowOpen("2",1000);
+
+
+
+
+
 
