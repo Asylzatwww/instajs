@@ -22,6 +22,22 @@
 * */
 var prUsersOld = [];
 
+/*
+* Classes which can change
+* */
+var
+    CLfolBodyUL = ".YHaCL", /* main page followers body->ul */
+    ClcloseBody = "._2dDPU", /* main page followers close background */
+    CLfollowLI = ".k9GMp", /* main page posts, followers, following */
+    CLfolBody = ".j6cq2", /* main page followers body */
+    CLheart = ".ptsdu", /* news heart open */
+    CLimage = "._9AhH0", /* main page image */
+    ClrightAr = "._1bdSS", /* main page Right Arrow */
+    CLiconMain = "._7mese", /* main page icon */
+    CLhomeIcon = ".kQqyt", /* main page home icon */
+    CLbtnFollow = "button.jIbKX", /* button to follow */
+    CLbtnUnFollow = "button.-fzfL" /* button to Unfollow */
+    ;
 
 /*
 * Not Dependent Function
@@ -53,7 +69,7 @@ function prUsersOldGet()
 function prfollowOpen(ind, time)
 {
 
-    var linkForClick = $("._h9luf ").find("li:eq( " + ind + " )").find("a");
+    var linkForClick = $(CLfollowLI).find("li:eq( " + ind + " )").find("a");
     linkForClick.attr("id","prfollowing");
     setTimeout(
         function(){
@@ -62,7 +78,7 @@ function prfollowOpen(ind, time)
 
             setTimeout(
                 function(){
-                    $("._gs38e").attr("id","prfollowb");
+                    $(CLfolBody).attr("id","prfollowb");
                     var prfollowbh = 0;
                     var prfollowt = setInterval(
                         function(){
@@ -96,13 +112,13 @@ function prfollowOpen(ind, time)
 
 function prCloseOpenWindow()
 {
-    if ($("._pfyik").length === 0){
+    if ($(ClcloseBody).length === 0){
         sequenceInd++;
         eval(sequenceFunc[sequenceInd]);
         return;
     }
 
-    $("._pfyik ").attr("id","prfollowingC");
+    $(ClcloseBody).attr("id","prfollowingC");
     setTimeout(
         function(){
             document.getElementById("prfollowingC").click();
@@ -119,14 +135,14 @@ function prCloseOpenWindow()
 * */
 
 function likeNext(){
-    if ($(".coreSpriteRightPaginationArrow").length === 0) return false;
-    $(".coreSpriteRightPaginationArrow").attr("id","nextme");
+    if ($(ClrightAr).length === 0) return false;
+    $(ClrightAr).attr("id","nextme");
     document.getElementById("nextme").click();
 
-    if ($(".coreSpriteHeartOpen").length === 0){
+    if ($(CLheart).length === 0){
         return true;
     } else {
-        $(".coreSpriteHeartOpen").parent().attr("id", "clickme");
+        $(CLheart).parent().attr("id", "clickme");
         document.getElementById("clickme").click();
         return false;
     }
@@ -139,13 +155,13 @@ function likeNext(){
 * */
 
 function likeUserImages(){
-    if ($("._e3il2").length === 0){
+    if ($(CLimage).length === 0){
         sequenceInd++;
         eval(sequenceFunc[sequenceInd]);
         return;
     }
 
-    $("._e3il2").attr("id","openme");
+    $(CLimage).attr("id","openme");
     document.getElementById("openme").click();
     setTimeout(
         function () {
@@ -153,7 +169,7 @@ function likeUserImages(){
             var likedBefore = 0;
             var timerId = setInterval(function() {
                 if (likeNext()) likedBefore++; else i++;
-                if (i > 3 || likedBefore > 0){
+                if (i > 1 || likedBefore > 0){
                     clearInterval(timerId);
                     sequenceInd++;
                     eval(sequenceFunc[sequenceInd]);
@@ -174,7 +190,7 @@ console.log("JQuery initialized succesfully!!!");
 <a href='javascript:
 
 function showUsersInfo() {
-    $("._gs38e").find("li").each(function () {
+    $(CLfolBodyUL).find("li").each(function () {
         var prUser = $(this).find("a").attr("href");
         if (prUser in prUsersOld) {
             $(this).find("a")[0].after(" п-ки " + prUsersOld[prUser].followers + " (" + prUsersOld[prUser].following + ") публ " + prUsersOld[prUser].posted + " ");
@@ -192,72 +208,138 @@ var sequenceFunc = [],
 sequenceFunc[1] = "showUsersInfo()";
 prfollowOpen("2",1000);
 
+
 '>showUserInfo</a>
 
 <a href='javascript:
 
 
-var prUsers = [];
-var allUsers = 0;
+
+
+
+var prUserNotFound = false;
 var currentUser = 0;
+var prUserIndex;
 
+prUsersOldGet();
+var sequenceFunc = [],
+    sequenceInd = 0;
 
-function prUserData()
+sequenceFunc[0] = "prfollowOpen(\"2\",1000);";
+sequenceFunc[1] = "lookForUser(prfollowt)";
+sequenceFunc[2] = "prUserDataCycleInd()";
+sequenceFunc[3] = "likeUserImages()";
+sequenceFunc[4] = "prCloseOpenWindow()";
+sequenceFunc[5] = "backFromUserPage()";
+
+eval( sequenceFunc[ sequenceInd ] );
+
+function prfollowOpen(ind, time)
 {
 
-    $("._gs38e").find("li").each(function(){
+    var linkForClick = $(CLfollowLI).find("li:eq( " + ind + " )").find("a");
+    linkForClick.attr("id","prfollowing");
+    setTimeout(
+        function(){
+            document.getElementById("prfollowing").click();
+            linkForClick.removeAttr("id");
 
-        prUsers[allUsers] = $(this).find("a").attr("href");
-        $(this).find("a").attr("id",  prUsers[allUsers] );
-        allUsers++;
+            setTimeout(
+                function(){
+                    $(CLfolBody).attr("id","prfollowb");
+                    var prfollowbh = 0;
+
+
+
+                    var prfollowt = setInterval(
+                        function(){
+                            if (prfollowbh != $("#prfollowb ul").height())
+                            {
+                                sequenceInd++;
+                                if ( eval(sequenceFunc[sequenceInd]) ) return false;
+                                sequenceInd--;
+
+                                console.log(sequenceInd);
+
+                                document.getElementById("prfollowb").scrollTo(0,$("#prfollowb ul").height());
+                                prfollowbh = $("#prfollowb ul").height();
+                                console.log(prfollowbh);
+                            }
+                            else
+                            {
+                                prUserNotFound = true;
+                                clearInterval(prfollowt);
+
+                            }
+                        },1000
+                    );
+
+
+
+
+                }, time
+            );
+        }, 600
+    );
+}
+
+
+function lookForUser(prfollowt){
+    $(CLfolBodyUL).find("li").each(function(){
+
+        currentUser = $(this).find("a").attr("href");
+
+        if (currentUser in prUsersOld && prUsersOld[ currentUser ].followers == 0 ){
+            $(this).find("a").attr("id",  currentUser );
+            clearInterval(prfollowt);
+            return false;
+        } else currentUser = "";
 
     });
 
-    prUserDataCycleInd( prUsers);
+    if (currentUser != ""){
+        sequenceInd++;
+        console.log("i am running twice");
+        eval(sequenceFunc[sequenceInd]);
+
+        return true;
+    }
 
 }
 
-function prUserDataCycleInd( prUsers)
+function prUserDataCycleInd()
 {
+    if (currentUser == "") return false;
 
-    if (prUsersOld[ prUsers[currentUser] ] != null && prUsersOld[ prUsers[currentUser] ].followers == 0){
+    setTimeout(
+        function(){
+            document.getElementById( currentUser ).click();
 
-        setTimeout(
-            function(){
-                document.getElementById( prUsers[currentUser] ).click();
+            setTimeout(
+                function(){
+                    prUsersOld[ currentUser ].followers = parseInt( $(CLfollowLI).find("li:eq( 1 )").find("span").html().replace(" ","").replace(",","").replace("тыс.","00") );
+                    prUsersOld[ currentUser ].following = parseInt( $(CLfollowLI).find("li:eq( 2 )").find("span").html().replace(" ","").replace(",","").replace("тыс.","00") );
 
-                setTimeout(
-                    function(){
-                        prUsersOld[ prUsers[currentUser] ].followers = parseInt( $("._h9luf ").find("li:eq( 1 )").find("span").html().replace(" ","").replace(",","").replace("тыс.","00") );
-                        prUsersOld[ prUsers[currentUser] ].following = parseInt( $("._h9luf ").find("li:eq( 2 )").find("span").html().replace(" ","").replace(",","").replace("тыс.","00") );
+                    prUserIndex++;
+                    console.log("User - " + currentUser + " Index - " + prUserIndex);
+                    console.log(prUsersOld[ currentUser ]);
 
-                        console.log("User - " + prUsers[currentUser] + "All - " + allUsers + " Current - " + currentUser);
-                        console.log(prUsersOld[ prUsers[currentUser] ]);
-
-                        sequenceInd = 2;
-                        eval(sequenceFunc[sequenceInd]);
+                    sequenceInd++;
+                    eval(sequenceFunc[sequenceInd]);
 
 
-                    }, 1000
-                );
+                }, 1000
+            );
 
-            }, 600
-        );
+        }, 600
+    );
 
-    }
-    else
-    {
-        console.log( prUsers[currentUser] );
-        currentUser++;
-        if (currentUser < allUsers) eval("prUserDataCycleInd(prUsers)");
-    }
 }
-
 
 function backFromUserPage() {
     setTimeout(
         function () {
-            $(".coreSpriteDesktopNavProfile").attr("id", "desktopNavProf");
+            $(CLhomeIcon).attr("id", "desktopNavProf");
             setTimeout(
                 function () {
                     document.getElementById("desktopNavProf").click();
@@ -265,30 +347,10 @@ function backFromUserPage() {
                     setTimeout(
                         function () {
 
-                            $("._h9luf ").find("li:eq( 2 )").find("a").attr("id", "prfollowing");
-                            setTimeout(
-                                function () {
-                                    document.getElementById("prfollowing").click();
-
-                                    setTimeout(
-                                        function(){
-
-                                            $("._gs38e").find("li").each(function(){
-
-                                                $(this).find("a").attr("id",  $(this).find("a").attr("href") );
-
-                                            });
-
-
-                                            currentUser++;
-                                            if (currentUser < allUsers) eval("prUserDataCycleInd(prUsers)");
-
-                                        }, 600
-                                    );
-
-                                }, 600
-                            );
-
+                            if (!prUserNotFound) {
+                                sequenceInd = 0;
+                                eval( sequenceFunc[ sequenceInd ] );
+                            }
 
                         }, 600
                     );
@@ -301,16 +363,26 @@ function backFromUserPage() {
 }
 
 
-prUsersOldGet();
-var sequenceFunc = [],
-    sequenceInd = 0;
 
-sequenceFunc[1] = "prUserData()";
-sequenceFunc[2] = "likeUserImages()";
-sequenceFunc[3] = "prCloseOpenWindow()";
-sequenceFunc[4] = "backFromUserPage()";
 
-prfollowOpen("2",1000);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 '>userData</a>
@@ -321,27 +393,62 @@ prfollowOpen("2",1000);
 
 
 
-function prUsersGet()
+
+function prfollowOpen(ind, time)
 {
-    var
-        prUsers = [],
-        i = 0,
-        date = new Date();
-    date = (date.getMonth() + 1) + "/" + date.getDate() + "/" +  date.getFullYear();
 
-    $("._gs38e").find("li").each(function(){
-        prUser = $(this).find("a").attr("href");
-        i++;
-        prUsers[i] = prUser;
+    var linkForClick = $(CLfollowLI).find("li:eq( " + ind + " )").find("a");
+    linkForClick.attr("id","prfollowing");
+    setTimeout(
+        function(){
+            document.getElementById("prfollowing").click();
+            linkForClick.removeAttr("id");
 
-        if(!(prUser in prUsersOld))
-        {
-            prUsersOld[prUser] = { "followers" : 0, "following" : 0, "posted" : 0, "date" : date, "followingMe" : 0 };
-            console.log("Added - " + prUser);
-        }
-    });
+            setTimeout(
+                function(){
+                    $(CLfolBody).attr("id","prfollowb");
+                    var prfollowbh = 0;
 
-    for (prUser in prUsersOld)
+
+
+                    var prfollowt = setInterval(
+                        function(){
+                            if (prfollowbh != $("#prfollowb ul").height())
+                            {
+                                sequenceInd++;
+                                eval(sequenceFunc[sequenceInd]);
+                                sequenceInd--;
+
+                                console.log(sequenceInd);
+
+                                document.getElementById("prfollowb").scrollTo(0,$("#prfollowb ul").height());
+                                prfollowbh = $("#prfollowb ul").height();
+                                console.log(prfollowbh);
+                            }
+                            else
+                            {
+                                clearInterval(prfollowt);
+
+                                sequenceInd++;
+                                sequenceInd++;
+                                console.log("i am running twice");
+                                eval(sequenceFunc[sequenceInd]);
+
+                            }
+                        },1000
+                    );
+
+
+
+
+                }, time
+            );
+        }, 600
+    );
+}
+
+function delUsersOld(){
+    for (var prUser in prUsersOld)
     {
         if(jQuery.inArray(prUser, prUsers) == -1)
         {
@@ -349,16 +456,36 @@ function prUsersGet()
             console.log("Deleted - " + prUser);
         }
     }
+}
 
-    sequenceInd++;
-    eval(sequenceFunc[sequenceInd]);
+
+function prUsersGet()
+{
+
+    $(CLfolBodyUL).find("li").each(function(){
+        if ( $(this).attr("ind") =="selected" ) return true;
+
+        var prUser = $(this).find("a").attr("href");
+        i++;
+        prUsers[i] = prUser;
+        console.log(prUser);
+
+        if(!(prUser in prUsersOld))
+        {
+            prUsersOld[prUser] = { "followers" : 0, "following" : 0, "posted" : 0, "date" : date, "followingMe" : 0 };
+            console.log("Added - " + prUser);
+        }
+
+        $(this).attr("ind", "selected");
+    });
+
 
 }
 
 function prFollowingMe()
 {
-    var that = this;
-    $("._gs38e").find("li").each(function(){
+
+    $(CLfolBodyUL).find("li").each(function(){
         prUser = $(this).find("a").attr("href");
         if(prUsersOld[prUser] != null)
         {
@@ -372,13 +499,28 @@ function prFollowingMe()
 
 
 prUsersOldGet();
+
+var
+    prUsers = [],
+
+    i = 0,
+    date = new Date();
+
+date = (date.getMonth() + 1) + "/" + date.getDate() + "/" +  date.getFullYear();
+
+
 var sequenceFunc = [],
     sequenceInd = 0;
+
 prfollowOpen("2",1000);
+
 sequenceFunc[1] = "prUsersGet()";
 sequenceFunc[2] = "prCloseOpenWindow()";
 sequenceFunc[3] = "prfollowOpen(\"1\",1000)";
 sequenceFunc[4] = "prFollowingMe()";
+sequenceFunc[5] = "delUsersOld()";
+
+
 
 
 '>whoFollows</a>
@@ -386,37 +528,30 @@ sequenceFunc[4] = "prFollowingMe()";
 <a href='javascript:
 function likesOnMainPage()
 {
-
-    $(".coreSpriteDesktopNavLogoAndWordmark").attr("id","desktopNav");
-
     setTimeout(
         function(){
-            document.getElementById("desktopNav").click();
 
-            setTimeout(
-                function(){
+            var i = 0;
 
-                    var i = 0;
-
-                    var timerId = setInterval(function() {
+            var timerId = setInterval(function() {
 
 
-                        $(".coreSpriteHeartOpen").parent().attr("id","prHeart");
-                        /*$(".coreSpriteHeartFull").parent().attr("id","prHeart");*/
+                $(CLheart).parent().attr("id","CLheart");
+                /*$(".coreSpriteHeartFull").parent().attr("id","CLheart");*/
 
-                        $(window).scrollTop(  $("#prHeart").offset().top );
-                        document.getElementById("prHeart").click();
+                if ( ( $("#CLheart").length == 0 ) || ($("#CLheart").offset() == null) || (i > 100) ){
+                    clearInterval(timerId);
+                    return;
+                }
 
-                        $("#prHeart").removeAttr("id");
-                        console.log(i);
+                $(window).scrollTop(  $("#CLheart").offset().top );
+                document.getElementById("CLheart").click();
 
-                        i++;
-                        if ( ($("#prHeart").offset() == null) || (i > 100) )
-                            clearInterval(timerId);
-                    }, 600);
+                $("#CLheart").removeAttr("id");
+                console.log(i);
 
-                }, 600
-            );
+                i++;
+            }, 600);
 
         }, 600
     );
@@ -450,10 +585,12 @@ writeToLocalStorage();
 
 <a href='javascript:
 
-$("._gs38e").attr("id","prfollowb");
+
+$(CLfolBodyUL).attr("id","prfollowb");
 var prfollowbh = 0;
 var i = 0;
 var j = 0;
+var uniqStr = Math.floor(Math.random() * 100);
 
 
 function clickToFollow(){
@@ -463,11 +600,11 @@ function clickToFollow(){
             document.getElementById("prfollowb").scrollTo(0,$("#prfollowb ul").height());
             prfollowbh = $("#prfollowb ul").height();
             j = i;
-            $("._gs38e").find("li").each(function(){
-                var prUser = $(this).find("button._gexxb");
+            $(CLfolBodyUL).find("li").each(function(){
+                var prUser = $(this).find(CLbtnFollow);
                 if ($(prUser).length !== 0){
                     i++;
-                    $(prUser).attr("id","click" + i)
+                    $(prUser).attr("id","click" + uniqStr + i);
                     console.log(prUser);
                 }
 
@@ -476,9 +613,9 @@ function clickToFollow(){
             var prClSelInt = setInterval(
                 function(){
 
-                    if ($("#click" + j).length === 0) console.log("click" + j);
+                    if ($("#click" + uniqStr + j).length === 0) console.log("click" + j);
                     else {
-                        document.getElementById("click" + j).click();
+                        document.getElementById("click" + uniqStr + j).click();
                         console.log("following - " + j);
                     }
 
@@ -504,6 +641,163 @@ clickToFollow();
 
 
 '>clickToFollow</a>
+
+<a href='javascript:
+
+
+
+function prfollowOpen(ind, time)
+{
+
+    var linkForClick = $(CLfollowLI).find("li:eq( " + ind + " )").find("a");
+    linkForClick.attr("id","prfollowing");
+    setTimeout(
+        function(){
+            document.getElementById("prfollowing").click();
+            linkForClick.removeAttr("id");
+
+            setTimeout(
+                function(){
+                    $(CLfolBody).attr("id","prfollowb");
+
+                    scrollDown();
+
+                }, time
+            );
+        }, 600
+    );
+}
+
+function scrollDown(){
+
+    setTimeout(
+        function(){
+            if (prfollowbh == $("#prfollowb ul").height()) return false;
+
+            sequenceInd++;
+            eval(sequenceFunc[sequenceInd]);
+
+            document.getElementById("prfollowb").scrollTo(0,$("#prfollowb ul").height());
+            prfollowbh = $("#prfollowb ul").height();
+            console.log(prfollowbh);
+
+        }, 1000
+    );
+
+}
+
+function lookForUser(prfollowt){
+    prUserIndex = 0;
+    prUserIndex2 = 0;
+    prUsers = [];
+
+    $(CLfolBodyUL).find("li").each(function(){
+
+        currentUser = $(this).find("a").attr("href");
+        console.log("Tracking user + " + currentUser + " date - " + ((prUsersOld[ currentUser ] != null) ? prUsersOld[ currentUser ].date : " - ") + " sort -  " + prUsersSort.indexOf( currentUser ) );
+
+        if (prUsersSort.indexOf( currentUser ) > -1) {
+            $(this).find(CLbtnUnFollow).attr("id",  currentUser );
+            prUserIndex++;
+            prUsers[ prUserIndex ] = currentUser;
+            console.log("Add to array - " + currentUser + " Index - " + prUserIndex);
+        }
+
+    });
+    if (prUserIndex == 0) {
+        sequenceInd = 0;
+        eval(sequenceFunc[sequenceInd]);
+        return false;
+    }
+
+    var prfollowt = setInterval(
+        function(){
+            prUserIndex2++;
+            document.getElementById( prUsers[ prUserIndex2 ] ).click();
+            console.log("Deleted - " + prUsersOld[ prUsers[ prUserIndex2 ] ]);
+            delete prUsersSort[ prUsersSort.indexOf( prUsers[ prUserIndex2 ] ) ];
+            delete prUsersOld[ prUsers[ prUserIndex2 ] ];
+            if (prUserIndex2 >= prUserIndex) {
+                clearInterval(prfollowt);
+                sequenceInd = 0;
+                eval(sequenceFunc[sequenceInd]);
+            }
+
+        },1000
+    );
+
+}
+
+
+
+var prUsersSort = [];
+var prUsersSort2 = [];
+var dates = [];
+var minDate = "";
+
+function min_date(all_dates) {
+    var min_dt = all_dates[0],
+        min_dtObj = new Date(all_dates[0]);
+    all_dates.forEach(function(dt, index)
+    {
+        if ( new Date( dt ) < min_dtObj)
+        {
+            min_dt = dt;
+            min_dtObj = new Date(dt);
+        }
+    });
+    return min_dt;
+}
+
+function prUsersSortF(){
+    var index = 0;
+    for (var prUser in prUsersOld){
+        if (prUsersOld[ prUser ].date in prUsersSort2)
+            prUsersSort2[ prUsersOld[ prUser ].date ].push( prUser );
+        else
+        {
+            prUsersSort2[ prUsersOld[ prUser ].date ] = [];
+            prUsersSort2[ prUsersOld[ prUser ].date ].push( prUser );
+            dates.push( prUsersOld[ prUser ].date );
+        }
+    }
+
+    minDate = min_date( dates );
+
+    for (var prUser in prUsersSort2[ minDate ]){
+        prUsersSort[index] = prUsersSort2[ minDate ][prUser];
+        index++;
+        if (index > 9) return false;
+    }
+
+}
+
+
+var currentUser = 0;
+var prfollowbh = 0;
+var prUserIndex = 0;
+var prUserIndex2 = 0;
+var prUsers = [];
+
+prUsersOldGet();
+prUsersSortF();
+
+
+var sequenceFunc = [],
+    sequenceInd = 0;
+
+sequenceFunc[0] = "scrollDown()";
+sequenceFunc[1] = "lookForUser()";
+
+prfollowOpen("2",1000);
+
+
+
+
+
+
+
+'>clickToCancelFollow</a>
 
 <style>
     a {

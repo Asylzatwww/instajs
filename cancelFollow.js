@@ -120,7 +120,7 @@ function prUsersSortF(){
     for (var prUser in prUsersSort2[ minDate ]){
         prUsersSort[index] = prUsersSort2[ minDate ][prUser];
         index++;
-        if (index > 9) return false;
+        if (index > 39) return false;
     }
 
 }

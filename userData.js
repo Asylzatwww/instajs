@@ -7,7 +7,7 @@ prUsersOldGet();
 var sequenceFunc = [],
     sequenceInd = 0;
 
-sequenceFunc[0] = "prfollowOpen`(\"2\",1000);";
+sequenceFunc[0] = "prfollowOpen(\"2\",1000);";
 sequenceFunc[1] = "lookForUser(prfollowt)";
 sequenceFunc[2] = "prUserDataCycleInd()";
 sequenceFunc[3] = "likeUserImages()";
