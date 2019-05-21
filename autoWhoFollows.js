@@ -1,16 +1,9 @@
 function prfollowOpen(ind, time)
 {
 
-    var linkForClick = $(".k9GMp").find("li:eq( " + ind + " )").find("a");
-    linkForClick.attr("id","prfollowing");
-    setTimeout(
-        function(){
-            document.getElementById("prfollowing").click();
-            linkForClick.removeAttr("id");
-
             setTimeout(
                 function(){
-                    $(".j6cq2").attr("id","prfollowb");
+                    $(".isgrP").attr("id","prfollowb");
                     var prfollowbh = 0;
 
 
@@ -19,7 +12,7 @@ function prfollowOpen(ind, time)
                         function(){
                             if (prfollowbh != $("#prfollowb ul").height())
                             {
-                                $("._1xe_U").find("li").each(function(){
+                                $("#prfollowb ul").find("li").each(function(){
                                     console.log( $(this).find("a").attr("href") );
 
                                     if (prUsers.indexOf( $(this).find("a").attr("href") ) < 0)
@@ -45,8 +38,7 @@ function prfollowOpen(ind, time)
 
                 }, time
             );
-        }, 600
-    );
+
 }
 
 var prUsers = [];

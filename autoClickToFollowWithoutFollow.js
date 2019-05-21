@@ -78,9 +78,11 @@ function findUser(){
 
     setTimeout(
         function () {
+
             document.getElementById("prfollowb").scrollTo(0,$("#prfollowb ul").height());
 
             $("._1xe_U").find("li").each(function(){
+                console.log("was");
                 var prUserBtn = $(this).find(".L3NKy");
                 var prUser = $(this).find("a");
                 if ( ($(prUserBtn).length !== 0) && (!$(prUserBtn).hasClass("_8A5w5")) &&  (prUsersOld.indexOf( $(this).find("a").attr("href") ) < 0) &&  (prUsersOld2.indexOf( $(this).find("a").attr("href") ) < 0) ) iFound =true;

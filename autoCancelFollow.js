@@ -1,15 +1,9 @@
 function prfollowOpen(ind, time)
 {
 
-    var linkForClick = $(".k9GMp").find("li:eq( " + ind + " )").find("a");
-    linkForClick.attr("id","prfollowing");
-    setTimeout(
-        function(){
-            document.getElementById("prfollowing").click();
-
             setTimeout(
                 function(){
-                    $(".j6cq2").attr("id","prfollowb");
+                    $(".isgrP").attr("id","prfollowb");
                     var prfollowbh = 0;
 
 
@@ -36,8 +30,6 @@ function prfollowOpen(ind, time)
 
                 }, time
             );
-        }, 600
-    );
 }
 
 var autoIndex = 0;
@@ -75,7 +67,7 @@ function cancelFollowStart(){
                             /******4*****/
 
 
-                        }, 50000
+                        }, 30000
                     );
                     /******3*****/
 

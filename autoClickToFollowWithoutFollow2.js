@@ -1,130 +1,19 @@
-function prfollowOpen(ind, time) {
+/** Small functions, see the name description V2 **/
 
-    setTimeout(
-        function () {
+function getNumberOfFolowers(){
+    var followers = $(".k9GMp").find("li:eq( 1 )").find("a").find("span").html();
 
+    if (isNaN(parseInt(followers))) followers = $(".k9GMp").find("li:eq( 1 )").find("span").find("span").html();
+    followers = followers.replace(" ", "");
 
-            /*************************   followers begin  ******************************/
+    if (followers.indexOf("тыс.") > 0) followers = parseInt(followers) + "000";
+    else if (followers.indexOf("млн") > 0) followers = parseInt(followers) + "000000";
 
-            var followers = $(".k9GMp").find("li:eq( 1 )").find("a").find("span").html();
-
-            if (isNaN(parseInt(followers))) followers = $(".k9GMp").find("li:eq( 1 )").find("span").find("span").html();
-            followers = followers.replace(" ", "");
-
-            if (followers.indexOf("тыс.") > 0) followers = parseInt(followers) + "000";
-            else if (followers.indexOf("млн") > 0) followers = parseInt(followers) + "000000";
-
-            followers = parseInt(followers);
-
-
-            if (followers > 500 && !firstStart) {
-                window.history.back();
-
-                sequenceInd = 0;
-                eval(sequenceFunc[sequenceInd]);
-            } else {
-
-                var prUserBtnD = $(".nZSzR").find("button");
-                $(prUserBtnD).attr("id","clickToFollowD");
-
-                setTimeout(
-                    function(){
-
-
-                        if (!firstStart && ( $("#clickToFollowD").length !== 0 )) document.getElementById("clickToFollowD").click();
-                        firstStart = false;
-
-                        window.history.back();
-
-                        sequenceInd = 0;
-                        eval(sequenceFunc[sequenceInd]);
-
-
-                    }, 1000
-                );
-                /***************** followers end ********************/
-
-            }
-
-        }, 1000
-    );
+    return parseInt(followers);
 }
 
-function findUser(){
-    var iFound = false;
-    $(".j6cq2").attr("id","prfollowb");
+/**  --  **/
 
-    setTimeout(
-        function () {
-            document.getElementById("prfollowb").scrollTo(0,$("#prfollowb ul").height());
-
-            $("._1xe_U").find("li").each(function(){
-                var prUserBtn = $(this).find(".L3NKy");
-                var prUser = $(this).find("a");
-                if ( ($(prUserBtn).length !== 0) && (!$(prUserBtn).hasClass("_8A5w5")) &&  (prUsersOld.indexOf( $(this).find("a").attr("href") ) < 0) &&  (prUsersOld2.indexOf( $(this).find("a").attr("href") ) < 0) ) iFound =true;
-                else console.log("Ignored : " + $(this).find("a").attr("href"));
-            });
-
-            if (iFound){
-                sequenceInd++;
-                eval(sequenceFunc[sequenceInd]);
-            } else {
-                findUser();
-            }
-
-            },
-        600
-    );
-}
-
-function followAndClickUser(){
-    /********2********/
-
-    $("._1xe_U").find("li").each(function(){
-        var prUserBtn = $(this).find(".L3NKy");
-        var prUser = $(this).find("a");
-        if ( ($(prUserBtn).length !== 0) && (!$(prUserBtn).hasClass("_8A5w5")) &&  (prUsersOld.indexOf( $(this).find("a").attr("href") ) < 0) &&  (prUsersOld2.indexOf( $(this).find("a").attr("href") ) < 0) ){
-
-            $(prUserBtn).attr("id","clickToFollow");
-            $(prUser).attr("id","clickUser");
-
-            prUsersOld2.push( $(this).find("a").attr("href") );
-
-            var prStr2 = "{";
-            for (var prUser2 in prUsersOld2)
-            {
-                prStr2 += "\"" + prUser2 + "\" : \"" + prUsersOld2[prUser2] + "\",";
-            }
-            prStr2 = prStr2.slice(0, -1);
-            prStr2 += "}";
-            console.log(prStr2);
-            localStorage["autoUsers2"] = prStr2;
-
-
-            setTimeout(
-                function(){
-                    document.getElementById("clickUser").click();
-
-                    setTimeout(
-                        function(){
-                            sequenceInd++;
-                            eval(sequenceFunc[sequenceInd]);
-                        }, 1000
-                    );
-
-                }, 2000
-            );
-            return false;
-
-        } else {
-            console.log("ignored : " + $(this).find("a").attr("href"));
-        }
-
-
-    });
-
-    /******2********/
-}
 
 function likeNext(){
     if ($(".coreSpriteRightPaginationArrow").length === 0) return false;
@@ -140,6 +29,13 @@ function likeNext(){
     }
 }
 
+
+/*var i = 0;
+var likedBefore = 0;
+var timerId = setInterval(function() {
+    if (likeNext()) likedBefore++; else i++;
+}, 2000);
+*/
 /*
 * Not Dependent Function
 * Used in:
@@ -161,7 +57,7 @@ function likeUserImages(){
             var likedBefore = 0;
             var timerId = setInterval(function() {
                 if (likeNext()) likedBefore++; else i++;
-                if (i > 2 || likedBefore > 0){
+                if (i > 0 || likedBefore > 0){
                     clearInterval(timerId);
                     sequenceInd++;
                     eval(sequenceFunc[sequenceInd]);
@@ -174,20 +70,16 @@ function likeUserImages(){
 
 function prCloseOpenWindow()
 {
-    if ($(".ckWGn").length === 0){
-        sequenceInd = 0;
-        eval(sequenceFunc[sequenceInd]);
-        return;
-    }
-
-    $(".ckWGn").attr("id","prfollowingC");
-    setTimeout(
-        function(){
-            document.getElementById("prfollowingC").click();
+    console.log("finish");
+    if ($(".ckWGn").length !== 0) window.history.back();
+    window.history.back();
+    setTimeout(function () {
             sequenceInd = 0;
             eval(sequenceFunc[sequenceInd]);
-        }, 600
-    );
+            },600);
+
+
+
 }
 
 function prUsersOldGet() {
@@ -222,18 +114,97 @@ function prUsersOldGet2() {
 
 }
 
+
 var prUsersOld2 = [];
 prUsersOldGet2();
 
-var firstStart = true;
+
+function UpdateLocalStorage(){
+    var prStr2 = "{";
+    for (var prUser2 in prUsersOld2)
+    {
+        prStr2 += "\"" + prUser2 + "\" : \"" + prUsersOld2[prUser2] + "\",";
+    }
+    prStr2 = prStr2.slice(0, -1);
+    prStr2 += "}";
+    localStorage["autoUsers2"] = prStr2;
+}
+
+/** ------------------------------------------------------------------ **/
+
+
+function findUser(){
+    var iFound = false;
+    $(".isgrP").attr("id","prfollowb");
+
+    setTimeout(function () {
+            document.getElementById("prfollowb").scrollTo(0,$("#prfollowb ul").height());
+
+            $("#prfollowb ul").find("li").each(function(){
+                var prUserBtn = $(this).find(".L3NKy");
+                var prUser = $(this).find("a");
+                console.log(prUser);
+                if ( ($(prUserBtn).length !== 0) && (!$(prUserBtn).hasClass("_8A5w5")) &&
+                    (prUsersOld.indexOf( $(this).find("a").attr("href") ) < 0) &&  (prUsersOld2.indexOf( $(this).find("a").attr("href") ) < 0) ) {
+                    iFound =true;
+                    $(prUserBtn).attr("id","clickToFollow");
+                    $(prUser).attr("id","clickUser");
+                    prUsersOld2.push( $(this).find("a").attr("href") );
+                    followAndClickUser();
+                    console.log("i found");
+                    return false;
+                }
+                else console.log("Ignored : " + $(this).find("a").attr("href"));
+            });
+
+            if (!iFound) findUser();
+
+            },600);
+}
+
+
+function followAndClickUser(){
+    /********2********/
+
+            UpdateLocalStorage();
+
+            setTimeout(function(){
+                    document.getElementById("clickUser").click();
+
+                    setTimeout(function(){
+                            if (getNumberOfFolowers() < 1500) {
+                                var prUserBtnD = $(".nZSzR").find("button");
+                                $(prUserBtnD).attr("id","clickToFollowD");
+
+                                setTimeout(function(){
+
+
+                                        if ($("#clickToFollowD").length !== 0) document.getElementById("clickToFollowD").click();
+
+                                        sequenceInd++;
+                                        eval(sequenceFunc[sequenceInd]);
+
+
+                                    }, 1000);
+                            } else {
+                                sequenceInd++;
+                                eval(sequenceFunc[sequenceInd]);
+                            }
+                        }, 1000);
+
+                }, 2000);
+
+    /******2********/
+}
+
+
 
 var sequenceFunc = [],
     sequenceInd = 0;
 
-sequenceFunc[0] = "prfollowOpen(\"2\",1000)";
-sequenceFunc[1] = "followAndClickUser()";
-sequenceFunc[2] = "likeUserImages()";
-sequenceFunc[3] = "prCloseOpenWindow()";
+sequenceFunc[0] = "findUser()";
+sequenceFunc[1] = "likeUserImages()";
+sequenceFunc[2] = "prCloseOpenWindow()";
 
 eval( sequenceFunc[ sequenceInd ] );
 
@@ -248,10 +219,38 @@ eval( sequenceFunc[ sequenceInd ] );
 
 
 
+/*
+function findUser(){
+    var iFound = false;
+    $(".isgrP").attr("id","prfollowb");
+
+    setTimeout(function () {
+        document.getElementById("prfollowb").scrollTo(0,$("#prfollowb ul").height());
+
+        $("#prfollowb ul").find("li").each(function(){
+            var prUserBtn = $(this).find(".L3NKy");
+            var prUser = $(this).find("a");
+            console.log(prUser);
+            if ( ($(prUserBtn).length !== 0) && (!$(prUserBtn).hasClass("_8A5w5"))
+                //&& (prUsersOld.indexOf( $(this).find("a").attr("href") ) < 0) &&  (prUsersOld2.indexOf( $(this).find("a").attr("href") ) < 0)
+            ) {
+                iFound =true;
+                $(prUserBtn).attr("id","clickToFollow");
+                $(prUser).attr("id","clickUser");
+                console.log( $(prUser).html() );
+                //prUsersOld2.push( $(this).find("a").attr("href") );
+                console.log("i found");
+                return false;
+            }
+            else console.log("Ignored : " + $(this).find("a").attr("href"));
+        });
+
+        //if (!iFound) findUser();
+
+    },600);
+}
+
+findUser();
 
 
-
-
-
-
-
+*/
