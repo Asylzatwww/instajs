@@ -10,7 +10,8 @@ var Location = "";
 var mapUrl = "https://www.google.com/maps/dir/";
 var dataClass;
 if ($("#eld-ev-s-text-content")[0]) dataClass = $("#eld-ev-s-text-content > tr");
-else dataClass = $("#eld-ev-o-text-content  > tr");
+else if ($("#eld-ev-o-text-content")[0]) dataClass = $("#eld-ev-o-text-content  > tr");
+else if ($("#eld-ev-text-content")[0]) dataClass = $("#eld-ev-text-content  > tr");
 
 var count = $( dataClass ).length;
 $( dataClass ).each(function(i) {
