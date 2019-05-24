@@ -1097,6 +1097,8 @@ SUM(krista_ordered_products.qty) as totalQty,
 
 FROM `krista_ordered_products`
 
+LEFT JOIN krista_product ON krista_product.id = krista_ordered_products.product_id
+
 LEFT JOIN krista_orders ON krista_orders.id= krista_ordered_products.order_id
 
 LEFT JOIN (
@@ -1107,11 +1109,15 @@ LEFT JOIN (
 
     FROM `krista_ordered_products`
 
+	LEFT JOIN krista_product ON krista_product.id = krista_ordered_products.product_id
+
     LEFT JOIN krista_orders ON krista_orders.id= krista_ordered_products.order_id
 
     WHERE
 
-    product_id = 749
+    #product_id = 749
+
+	krista_product.art = '102-07 (42-48)'
 
     AND krista_ordered_products.status=1
 
@@ -1121,7 +1127,9 @@ LEFT JOIN (
 
 WHERE
 
-krista_ordered_products.product_id = 749
+#krista_ordered_products.product_id = 749
+
+krista_product.art = '102-07 (42-48)'
 
 AND krista_ordered_products.status=1
 
