@@ -1076,3 +1076,58 @@ HTML;
 	echofooter();
 
 ?>
+
+
+
+
+<?php
+
+/**********      Transfer Data   ************/
+
+
+/*
+
+SELECT
+krista_ordered_products.*,
+SUM(krista_ordered_products.qty) as totalQty,
+
+(krista_ordered_productsDupl.totalQty * krista_ordered_products.price) as totalPrice,
+
+(krista_ordered_productsDupl.totalQty * ( krista_ordered_products.price - krista_ordered_products.calculation_prize) ) as totalRevenue
+
+FROM `krista_ordered_products`
+
+LEFT JOIN krista_orders ON krista_orders.id= krista_ordered_products.order_id
+
+LEFT JOIN (
+
+    SELECT
+    krista_ordered_products.*,
+    SUM(krista_ordered_products.qty) as totalQty
+
+    FROM `krista_ordered_products`
+
+    LEFT JOIN krista_orders ON krista_orders.id= krista_ordered_products.order_id
+
+    WHERE
+
+    product_id = 749
+
+    AND krista_ordered_products.status=1
+
+    AND krista_orders.status!=0
+
+) as krista_ordered_productsDupl ON krista_ordered_productsDupl.id = krista_ordered_products.id
+
+WHERE
+
+krista_ordered_products.product_id = 749
+
+AND krista_ordered_products.status=1
+
+AND krista_orders.status!=0
+
+*/
+
+
+?>
